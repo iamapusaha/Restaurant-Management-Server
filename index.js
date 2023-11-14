@@ -6,7 +6,7 @@ const port = process.env.PORT || 5000;
 require('dotenv').config()
 
 //middleware
-app.use(express())
+app.use(express.json())
 app.use(cors())
 
 
@@ -25,6 +25,13 @@ async function run() {
     try {
 
         // Send a ping to confirm a successful connection
+        const menuCollection = client.db("restaurantDB").collection("menu");
+        app.get('/menu', async (req, res) => {
+            const result = await menuCollection.find().toArray()
+            res.send(result)
+        })
+
+
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
