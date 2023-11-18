@@ -40,7 +40,11 @@ async function run() {
             res.send(result)
         })
         //cart related api
-        app.post('/cart', async (req, res) => {
+        app.get('/carts', async (req, res) => {
+            const result = await cartCollection.find().toArray();
+            res.send(result)
+        })
+        app.post('/carts', async (req, res) => {
             const cartInfo = req.body;
             const result = await cartCollection.insertOne(cartInfo);
             res.send(result)
