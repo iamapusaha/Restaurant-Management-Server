@@ -116,6 +116,11 @@ async function run() {
         })
 
         // All menu related api
+        app.post('/menu', async (req, res) => {
+            const item = req.body;
+            const result = await menuCollection.insertOne(item);
+            res.send(result)
+        })
         app.get('/menu', async (req, res) => {
             const result = await menuCollection.find().toArray()
             res.send(result)
@@ -124,6 +129,9 @@ async function run() {
             const result = await reviewCollection.find().toArray()
             res.send(result)
         })
+
+
+
         //cart related api
         app.get('/carts', async (req, res) => {
             const email = req.query.email;
